@@ -2,7 +2,7 @@ from django import template
 from BlogApp1.models import Post
 register = template.Library()
 
-@register.simple_tag
+#@register.simple_tag
 @register.simple_tag(name='my_tag')
 def total_posts():
     return Post.objects.count()

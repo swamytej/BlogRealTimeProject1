@@ -15,27 +15,35 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,re_path
-from django.conf.urls import include
 from BlogApp1 import views
+from django.conf.urls import include
+from django.conf.urls.static import static
+from django.conf import settings
+
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path('add/', views.Postview),
+      path('admin/', admin.site.urls),
+      path('accounts/', include('django.contrib.auth.urls')),
+      path('post/', views.postview, name='post'),
+      path('logout/', views.logout_view),
+      path('<year>/<month>/<day>/<post>/', views.post_detailview, name='post_detail'),
+      path('<id>/share/', views.mailsendview),
+      path('signup/', views.signupview),
+      path('thank/', views.thankyou1),
+      path('comment/', views.commentview.as_view()),
+      path('update/<pk>', views.postupdateview.as_view(), name='update'),
+      path('<pk>/userupdate/', views.profileupdate, name='upedit'),
+      path('delete/<pk>', views.commentdelete.as_view(), name='delete'),
+      path('delete1/<pk>', views.Postdeleteview.as_view(), name='delete'),
+      path('succ/', views.postsuccview, name='succ'),
+      path('profile/', views.profileview),
+      path('succ/', views.commentdelsucc, name='succ'),
+      path('contact/', views.contactview),
+      path('home/', views.home_page),
+      path('tag/', views.post_list_view),
+      path('<tag_slug>/comment/', views.post_list_view, name='post_list_by_tag_name'),
 
-    path('<tag_slug>/comment', views.post_list_view, name='post_list_by_tag_name'),
+      # path('postlist/',views.postview),
 
-    path('<year>/<month>\<day>\<post>', views.post_detail_view, name='post_detail'),
-
-    path("<id>/share/", views.mail_send_view),
-    path('signup/', views.signup_view),
-    path('logout/', views.logout_view),
-    path('delete/<pk>', views.PostDeleteView.as_view(), name='delete'),
-    path('succ/,', views.Postsuccview, name='succ'),
-    path('^mail/', views.mail_send_view),
-    # path("bssample/",views.bs_smaple_view),
-
-    # use-in-lasts
-    re_path('^.*$', views.post_list_view),
-
-]
+      re_path('^.*$', views.home_page),
+    ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

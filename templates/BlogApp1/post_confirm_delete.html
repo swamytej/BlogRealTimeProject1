@@ -1,12 +1,10 @@
 <!DOCTYPE html>
-{%extends 'BlogApp1/base.html'%}
-{%block title %}{{ post.title }}{% endblock %}
+{% extends 'BlogApp1/base.html' %}
 {% block content %}
-    <h1>Delete{{ post.name }}post</h1>
-    <h2>Are you want to delete the post</h2>
+    <h1>Delete {{Post.name}} Post ???</h1><hr>
     <form method="post">
         {%csrf_token%}
-        Yes:<button type="submit"class="btn btn-ly btn-danger">Delete-post</button><br /><br/>
-        NO(stop):<a href="/detail-post/{{post.id}}"><button type="button"class="btn btn-ly btn-primary">Cancel</button> </a>
-</form>
-{%endblock%}
+        Yes : <button style="width: auto" type="submit">Delete-post</button> <br /> <br />
+        NO(stop) : <a href="/tag/{{post.id}}" class="btn btn-ly btn-primary">Cancel-Delete</a>
+    </form>
+{%endblock %}
